@@ -9,7 +9,10 @@ public class User {
     private String location;
     private String photo;
 
-    public static final User EMPTY_USER = new User("", "", "");
+    public static final User EMPTY_USER = new User();
+
+    private User() {
+    }
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
