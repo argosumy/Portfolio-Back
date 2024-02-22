@@ -27,6 +27,7 @@ public class ModificationUserController {
     @GetMapping("/users/{id}")
     public User findUserById(@PathVariable("id") long id) {
         User user = modificationUserService.getUserById(id);
+        System.out.println(user);
         return user;
     }
 }

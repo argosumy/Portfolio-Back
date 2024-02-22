@@ -2,7 +2,7 @@ package com.portfolio.features.user_features.modification_user.repositories;
 
 import com.portfolio.features.user_features.modification_user.repositories.mapers.UserRowMapper;
 import com.portfolio.models.User;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class ModificationUserRepositoryImpl implements ModificationUserRepository {
     private final JdbcTemplate jdbcTemplate;
 
-
     public ModificationUserRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public User getUserById(long id) {
-        User res = jdbcTemplate.queryForObject("SELECT * FROM users WHERE id=?", new UserRowMapper(), id);
-        return res;
+        try {
+            String sql = "SELECT * FROM users WHERE id=?";
+            return jdbcTemplate.queryForObject(sql, new UserRowMapper(), id);
+        } catch (EmptyResultDataAccessException ignored) {
+            return User.EMPTY_USER;
+        }
     }
 
     @Override
