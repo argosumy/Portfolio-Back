@@ -9,10 +9,18 @@ import java.sql.SQLException;
 public class UserRowMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        long id = rs.getLong("id");
         String firstName = rs.getString("first_name");
         String lastName = rs.getString("last_name");
         String email = rs.getString("email");
-
-        return new User(firstName, lastName, email);
+        String phone = rs.getString("phone");
+        String location = rs.getString("location");
+        String photo = rs.getString("photo");
+        User user = new User(firstName, lastName, email);
+        user.setId(id);
+        user.setPhone(phone);
+        user.setLocation(location);
+        user.setPhoto(photo);
+        return user;
     }
 }
