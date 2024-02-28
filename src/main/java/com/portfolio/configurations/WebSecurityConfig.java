@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -21,7 +22,8 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(requests ->
                 requests.requestMatchers("/**").permitAll()
                 )
-                .cors(c -> c.configurationSource(corsConfigurationSource()));
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
+        .csrf(CsrfConfigurer::disable);
         return http.build();
     }
 
@@ -31,7 +33,8 @@ public class WebSecurityConfig {
         corsConfiguration.setAllowedOrigins(Arrays.asList(
                 "http://172.30.128.1:8080",
                 "http://192.168.0.104:8080",
-                "http://127.0.0.1:8080"
+                "http://127.0.0.1:8080",
+                "http://127.0.0.1:5500"
                 ));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.addAllowedHeader(HttpHeaders.CONTENT_TYPE);

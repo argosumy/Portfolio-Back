@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public class ModificationUserRepositoryImpl implements ModificationUserRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -39,5 +41,11 @@ public class ModificationUserRepositoryImpl implements ModificationUserRepositor
     public int deleteUserById(long id) {
         final String sql = "DELETE FROM users WHERE id=?";
         return jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        final String sql = "SELECT * FROM users;";
+        return jdbcTemplate.query(sql, new UserRowMapper());
     }
 }

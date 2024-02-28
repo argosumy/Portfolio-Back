@@ -4,6 +4,8 @@ import com.portfolio.features.user_features.modification_user.services.Modificat
 import com.portfolio.models.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ModificationUserController {
     private final ModificationUserService modificationUserService;
@@ -15,8 +17,7 @@ public class ModificationUserController {
     @PutMapping("/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable("id") long id) {
         user.setId(id);
-        modificationUserService.updateUser(user);
-        return user;
+        return modificationUserService.updateUser(user);
     }
 
     @DeleteMapping("/users/{id}")
@@ -26,8 +27,11 @@ public class ModificationUserController {
 
     @GetMapping("/users/{id}")
     public User findUserById(@PathVariable("id") long id) {
-        User user = modificationUserService.getUserById(id);
-        System.out.println(user);
-        return user;
+        return modificationUserService.getUserById(id);
+    }
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return modificationUserService.getAllUsers();
     }
 }

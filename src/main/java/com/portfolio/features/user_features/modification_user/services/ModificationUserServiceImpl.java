@@ -7,6 +7,8 @@ import com.portfolio.models.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.portfolio.helpers.repository_helpers.SqlQueries.UPDATE_USER_SQL_TEMPLATE;
 
 @Service
@@ -39,5 +41,10 @@ public class ModificationUserServiceImpl implements ModificationUserService {
     @Override
     public int deleteUserById(long id) {
         return repository.deleteUserById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return repository.getAllUsers();
     }
 }
