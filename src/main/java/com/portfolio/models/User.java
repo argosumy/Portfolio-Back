@@ -1,5 +1,7 @@
 package com.portfolio.models;
 
+import java.util.Objects;
+
 public class User {
     private long id;
     private String firstName;
@@ -12,6 +14,7 @@ public class User {
     public static final User EMPTY_USER = new User();
 
     private User() {
+        this.id = 0;
     }
 
     public User(String firstName, String lastName, String email) {
@@ -65,6 +68,21 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -76,4 +94,6 @@ public class User {
                 ", photo='" + photo + '\'' +
                 '}';
     }
+
+
 }

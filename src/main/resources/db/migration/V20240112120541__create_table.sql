@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS education (
     name VARCHAR(150) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS user_education (
+CREATE TABLE IF NOT EXISTS users_educations (
     user_id INT NOT NULL,
     education_id INT NOT NULL,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),

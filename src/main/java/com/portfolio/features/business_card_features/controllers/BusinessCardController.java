@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BusinessCardController {
     private final BusinessCardServiceImpl cardService;
@@ -17,5 +19,10 @@ public class BusinessCardController {
     @GetMapping("/users/{id}/card")
     public BusinessCardUser getBusinessCard(@PathVariable("id") long id) {
         return cardService.getCardByUserId(id);
+    }
+
+    @GetMapping("/users/cards")
+    public List<BusinessCardUser> getBusinessCards() {
+        return cardService.getCards();
     }
 }

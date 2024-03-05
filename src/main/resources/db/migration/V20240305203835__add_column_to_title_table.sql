@@ -1,0 +1,1 @@
+ALTER TABLE users_titles ADD COLUMN is_hidden BOOLEAN DEFAULT false;
