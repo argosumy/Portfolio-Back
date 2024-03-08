@@ -4,6 +4,7 @@ class UserDto {
     private String  firstName;
     private String lastName;
     private String email;
+    private String password;
 
     public String getFirstName() {
         return firstName;
@@ -27,5 +28,13 @@ class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
