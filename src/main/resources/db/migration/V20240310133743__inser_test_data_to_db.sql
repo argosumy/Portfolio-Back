@@ -1,0 +1,79 @@
+DO
+$do$
+    BEGIN
+        --INSERT users
+        IF NOT EXISTS (SELECT * FROM users WHERE email = 'argosumy@gmail.com') THEN
+            INSERT INTO users(first_name, last_name, email) VALUES ('Valerii','Lozynskyi','argosumy@gmail.com');
+        END IF;
+        IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@ua.fm') THEN
+            INSERT INTO users(first_name, last_name, email) VALUES ('Liubov', 'Romanova', 'notexist@ua.fm');
+        END IF;
+        IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@tol.com') THEN
+            INSERT INTO users(first_name, last_name, email) VALUES ('Michael', 'Barnes', 'notexist@best.com');
+        END IF;
+        --INSERT education
+        IF NOT EXISTS (SELECT * FROM education WHERE user_id = '1') THEN
+            INSERT INTO education(user_id, name_institute, specialization, start_education, finish_education, type)
+            VALUES (1, 'Kharkov University of Internal Affairs', 'Information systems in management', '1995-01-01', '2000-06-25', 'EDUCATION');
+        END IF;
+        IF NOT EXISTS (SELECT * FROM education WHERE user_id = '2') THEN
+            INSERT INTO education(user_id, name_institute, specialization, start_education, finish_education, type)
+            VALUES (2, 'Sumy National Agrarian University', 'Management', '2010-08-01', '2015-05-25', 'EDUCATION');
+        END IF;
+        IF NOT EXISTS (SELECT * FROM education WHERE user_id = '3') THEN
+            INSERT INTO education(user_id, name_institute, start_education, finish_education, type)
+            VALUES (3, 'University of Maryland School of Law', '2005-09-01', '2010-06-25', 'EDUCATION');
+        END IF;
+        --INSERT experience
+        IF NOT EXISTS (SELECT * FROM experience WHERE id = 1) THEN
+            INSERT INTO experience(user_id, title, start_job, finish_job, description)
+            VALUES (1, 'Java developer - DataOX', '2021-06-06', null, 'Attorneys Scraper Project
+The main goal of the project is to form a unified database of lawfirm profiles grouped by region. The profile of attorney hasemployment history, practical areas of competence, the history ofcases, received honors and more. The data is collected and used forstatistical and analytical purposes.
+Technology Stack:
+Java Stream API, JSOUP, Java RegEx, OkHttp3,Selenium, Gson,
+CSS, HTML, Apache POI, JUnit, Postman.');
+        END IF;
+        IF NOT EXISTS (SELECT * FROM experience WHERE id = 2) THEN
+                INSERT INTO experience(user_id, title, start_job, finish_job, description)
+                VALUES (1, 'Java Developer - SPD', '2021-03-01', '2021-06-30', 'Beauty Services Booking System
+.
+The platform allows customers to choose a salon, beauty service,useful time slot and schedule an appointment. The platform sendsreminders by email. Owners of salons can create a business profileand add employees to the booking platform, as well as promotetheir services.
+Technology Stack:
+Java, Spring Boot, PostgreSQL, Minio, AWS S3,Flyway, Swagger, Docker Tasks/features: - project configuration
+- module of authentication/authorization - CRUD operations for users - file storage - service of notifications - unit tests');
+        END IF;
+        --INSERT hard-skills
+        IF NOT EXISTS (SELECT * FROM hard_skills WHERE user_id = 1) THEN
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Java');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Spring Boot');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'PostgreSQL');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'JavaScript');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'HTML, CSS');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'CSS');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Docker');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Swagger');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Minio');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Flyaway');
+            INSERT INTO hard_skills(user_id, name) VALUES (1, 'JDBC');
+        END IF;
+        --INSERT soft-skills
+        IF NOT EXISTS (SELECT * FROM soft_skills WHERE user_id = 1) THEN
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Eeasy learning');
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Stress-resistant');
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Self-organized');
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Open for challenges');
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Positive attitude');
+            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Excellent communication skills');
+        END IF;
+        --INSER title
+        IF NOT EXISTS (SELECT * FROM titles WHERE user_id = 1) THEN
+            INSERT INTO titles(user_id, title) VALUES (1, 'Java Developer');
+        END IF;
+    END
+$do$
+
+
+
+
+
+

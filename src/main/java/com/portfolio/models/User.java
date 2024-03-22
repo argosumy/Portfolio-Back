@@ -23,7 +23,7 @@ public class User {
         this.email = email;
     }
 
-    public String getFistName() {
+    public String getFirstName() {
         return firstName;
     }
 

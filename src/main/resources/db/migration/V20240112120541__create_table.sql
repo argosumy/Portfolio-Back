@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
     phone VARCHAR(30) UNIQUE,
     email VARCHAR(60) UNIQUE NOT NULL,
     location VARCHAR(30),
-    photo TEXT
+    photo TEXT,
+    cv_hidden BOOLEAN DEFAULT false
     );
 
 CREATE TABLE IF NOT EXISTS experience (
@@ -22,10 +23,11 @@ CREATE TABLE IF NOT EXISTS education (
     id SERIAL PRIMARY KEY,
     user_id INT,
     name_institute VARCHAR(300) NOT NULL,
-    specialization varchar(250),
+    specialization VARCHAR(250),
     start_education DATE,
     finish_education DATE,
     description TEXT,
+    type VARCHAR(50),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -43,23 +45,12 @@ CREATE TABLE IF NOT EXISTS hard_skills (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS education (
+CREATE TABLE IF NOT EXISTS titles (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(150) UNIQUE NOT NULL
+    user_id INT,
+    title VARCHAR(150) UNIQUE NOT NULL,
+    summary TEXT,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
-CREATE TABLE IF NOT EXISTS users_educations (
-    user_id INT NOT NULL,
-    education_id INT NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_education FOREIGN KEY (education_id) REFERENCES education(id)
-);
-
-
-
-
-
-
-
 
 

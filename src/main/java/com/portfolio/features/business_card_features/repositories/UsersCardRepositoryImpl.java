@@ -18,7 +18,7 @@ public class UsersCardRepositoryImpl implements UsersCardRepository {
     public BusinessCardUser getUserCardByUserId(long id) {
         final BusinessCardUsersRowCallBackHandler rowCallBackHandler = new BusinessCardUsersRowCallBackHandler();
         final String sql = "SELECT * FROM users LEFT JOIN hard_skills AS hs ON users.id = hs.user_id " +
-                "LEFT JOIN users_titles AS titles ON users.id = titles.user_id WHERE users.id = ?;";
+                "LEFT JOIN titles AS titles ON users.id = titles.user_id WHERE users.id = ?;";
         jdbcTemplate.query(sql, ps -> ps.setLong(1, id), rowCallBackHandler);
         return rowCallBackHandler.getResult().get(id);
     }
@@ -27,7 +27,7 @@ public class UsersCardRepositoryImpl implements UsersCardRepository {
     public Collection<BusinessCardUser> getUsersCard() {
         final BusinessCardUsersRowCallBackHandler rowCallBackHandler = new BusinessCardUsersRowCallBackHandler();
         final String sql = "SELECT * FROM users LEFT JOIN hard_skills AS hs ON users.id = hs.user_id " +
-                                               "LEFT JOIN users_titles AS titles ON users.id = titles.user_id;";
+                                               "LEFT JOIN titles ON users.id = titles.user_id;";
         jdbcTemplate.query(sql, rowCallBackHandler);
         return rowCallBackHandler.getResult().values();
     }
@@ -36,7 +36,7 @@ public class UsersCardRepositoryImpl implements UsersCardRepository {
     public Collection<BusinessCardUser> getUsersCardNotHidden() {
         final BusinessCardUsersRowCallBackHandler rowCallBackHandler = new BusinessCardUsersRowCallBackHandler();
         final String sql = "SELECT * FROM users LEFT JOIN hard_skills AS hs ON users.id = hs.user_id " +
-                "LEFT JOIN users_titles AS titles ON users.id = titles.user_id WHERE is_hidden = false;";
+                "LEFT JOIN titles ON users.id = titles.user_id WHERE cv_hidden = false;";
         jdbcTemplate.query(sql, rowCallBackHandler);
         return rowCallBackHandler.getResult().values();
     }

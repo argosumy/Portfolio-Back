@@ -30,7 +30,7 @@ public class BusinessCardUsersRowCallBackHandler implements RowCallbackHandler {
             } else {
                 List<String> practiceAreas = new ArrayList<>();
                 String title = rs.getString("title");
-                boolean isHidden = rs.getBoolean("is_hidden");
+                boolean isHidden = rs.getBoolean("cv_hidden");
                 if(arie != null) {
                     practiceAreas.add(arie);
                 }

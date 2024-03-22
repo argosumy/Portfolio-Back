@@ -2,12 +2,11 @@ package com.portfolio.features.business_card_features.repositories;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public class PractiseAreasUserRepositoryImpl implements PractiseAreasUserRepository {
     private final JdbcTemplate jdbcTemplate;
 

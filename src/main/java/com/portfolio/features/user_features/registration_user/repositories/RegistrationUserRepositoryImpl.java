@@ -30,7 +30,7 @@ class RegistrationUserRepositoryImpl implements RegistrationUserRepository {
             final KeyHolder keyHolder = new GeneratedKeyHolder();
             parameterJdbcTemplate.getJdbcTemplate().update(con -> {
                 PreparedStatement ps = con.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, user.getFistName());
+                ps.setString(1, user.getFirstName());
                 ps.setString(2, user.getLastName());
                 ps.setString(3, user.getEmail());
                 return ps;
