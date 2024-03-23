@@ -4,6 +4,7 @@ $do$
         --INSERT users
         IF NOT EXISTS (SELECT * FROM users WHERE email = 'argosumy@gmail.com') THEN
             INSERT INTO users(first_name, last_name, email) VALUES ('Valerii','Lozynskyi','argosumy@gmail.com');
+            INSERT INTO user_security(user_id, password, role) VALUES (1, '$2a$08$xAi3bVoUxcCVRl2vnC1IR.bAXI/G0cJp1C4VlymP98qDqMqleqr4K','OWNER');
         END IF;
         IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@ua.fm') THEN
             INSERT INTO users(first_name, last_name, email) VALUES ('Liubov', 'Romanova', 'notexist@ua.fm');
@@ -65,7 +66,7 @@ Java, Spring Boot, PostgreSQL, Minio, AWS S3,Flyway, Swagger, Docker Tasks/featu
             INSERT INTO soft_skills(user_id, name) VALUES (1, 'Positive attitude');
             INSERT INTO soft_skills(user_id, name) VALUES (1, 'Excellent communication skills');
         END IF;
-        --INSER title
+        --INSERT title
         IF NOT EXISTS (SELECT * FROM titles WHERE user_id = 1) THEN
             INSERT INTO titles(user_id, title) VALUES (1, 'Java Developer');
         END IF;

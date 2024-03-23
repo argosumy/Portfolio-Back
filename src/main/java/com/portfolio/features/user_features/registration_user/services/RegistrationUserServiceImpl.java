@@ -13,7 +13,7 @@ class RegistrationUserServiceImpl implements RegistrationUserService {
     }
 
     @Override
-    public int addNewUser(User user) {
-        return repository.addNewUser(user);
+    public int addNewUser(User user, String password) {
+        return repository.addNewUser(user, password);
     }
 }

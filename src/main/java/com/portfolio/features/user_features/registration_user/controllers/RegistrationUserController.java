@@ -17,7 +17,7 @@ public class RegistrationUserController {
     @PostMapping("/users")
     public Integer registrationNewUser(@RequestBody UserDto userDto) {
         User user = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail());
-        return registrationUserService.addNewUser(user);
+        return registrationUserService.addNewUser(user, userDto.getPassword());
     }
 
 }

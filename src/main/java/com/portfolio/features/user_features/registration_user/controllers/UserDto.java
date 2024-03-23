@@ -1,6 +1,6 @@
 package com.portfolio.features.user_features.registration_user.controllers;
 
-class UserDto {
+public class UserDto {
     private String  firstName;
     private String lastName;
     private String email;

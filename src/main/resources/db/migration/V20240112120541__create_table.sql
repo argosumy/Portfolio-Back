@@ -9,6 +9,12 @@ CREATE TABLE IF NOT EXISTS users (
     cv_hidden BOOLEAN DEFAULT false
     );
 
+CREATE TABLE IF NOT EXISTS user_security (
+    user_id INT UNIQUE,
+    password VARCHAR(150) NOT NULL,
+    role VARCHAR(50) DEFAULT 'USER'
+);
+
 CREATE TABLE IF NOT EXISTS experience (
     id SERIAL PRIMARY KEY,
     user_id INT,
