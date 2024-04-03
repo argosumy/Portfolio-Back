@@ -1,5 +1,7 @@
 package com.portfolio.security.services;
 
+import com.portfolio.security.controllers.TokenDto;
+import com.portfolio.security.models.UserSecurity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +19,11 @@ public class JWTServiceImpl implements JWTService{
     }
 
     @Override
-    public String createJWTToken(String login, String password) {
+    public TokenDto createJWTToken(String login, String password) {
         var userNamePassword = new UsernamePasswordAuthenticationToken(login, password);
         var authUser = authenticationManager.authenticate(userNamePassword);
-        return tokenProvider.generateAccessToken((UserDetails) authUser.getPrincipal());
+        String token = tokenProvider.generateAccessToken((UserDetails) authUser.getPrincipal());
+        long userId = ((UserSecurity)authUser.getPrincipal()).getId();
+        return new TokenDto(userId, token);
     }
 }

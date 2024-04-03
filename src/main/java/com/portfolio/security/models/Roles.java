@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 import static com.portfolio.security.models.Permissions.*;
 
 public enum Roles {
-    OWNER(List.of(MODIFICATION_ADMIN, MODIFICATION_USER, MODIFICATION_CV)),
-    ADMIN(List.of(MODIFICATION_USER)),
-    USER(List.of(MODIFICATION_CV));
+    OWNER(List.of(DIRECTOR)),
+    ADMIN(List.of(MODIFICATION_USER, MODIFICATION_ADMIN)),
+    USER(List.of(MODIFICATION_CV, MODIFICATION_USER));
 
     private final List<Permissions> permissions;
 

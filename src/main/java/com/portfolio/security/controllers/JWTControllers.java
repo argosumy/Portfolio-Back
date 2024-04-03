@@ -15,7 +15,7 @@ public class JWTControllers {
     }
 
     @PostMapping("/auth/signin")
-    public String getJwtToken(@RequestBody SignInDto signInDto) {
+    public TokenDto getJwtToken(@RequestBody SignInDto signInDto) {
         return service.createJWTToken(signInDto.getLogin(), signInDto.getPassword());
     }
 }

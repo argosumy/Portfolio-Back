@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public class SecurityRepositoryImpl implements SecurityRepository{
     private final JdbcTemplate jdbcTemplate;
@@ -23,5 +25,11 @@ public class SecurityRepositoryImpl implements SecurityRepository{
         } catch (EmptyResultDataAccessException ignored) {
             return UserSecurity.USER_SECURITY_EMPTY;
         }
+    }
+
+    @Override
+    public Map<String, Object> getSecurityUserById(long id) {
+        String sql = "SELECT * FROM user_security INNER JOIN users ON user_id = id WHERE user_id = ?;";
+        return jdbcTemplate.queryForMap(sql, id);
     }
 }

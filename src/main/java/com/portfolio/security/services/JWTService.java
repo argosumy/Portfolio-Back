@@ -1,5 +1,7 @@
 package com.portfolio.security.services;
 
+import com.portfolio.security.controllers.TokenDto;
+
 public interface JWTService {
-    String createJWTToken(String login, String password);
+    TokenDto createJWTToken(String login, String password);
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfig {
     private final SecurityFilter securityFilter;
 
@@ -37,7 +39,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req ->
                         req
 //                              .requestMatchers("/**").permitAll())
-                                .requestMatchers("/auth/signin", "/users/cards").permitAll()
+                                .requestMatchers("/auth/signin", "/users/cards", "/test/**", "/users/*/cv").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/users").permitAll()
                                 .anyRequest().authenticated())
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
@@ -57,6 +59,7 @@ public class WebSecurityConfig {
                 ));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.addAllowedHeader(HttpHeaders.CONTENT_TYPE);
+        corsConfiguration.addAllowedHeader(HttpHeaders.AUTHORIZATION);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
