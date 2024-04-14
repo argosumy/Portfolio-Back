@@ -15,9 +15,9 @@ public class CVRepositoryImpl implements CVRepository {
     }
 
     public List<Map<String, Object>> getFullDataByUserId(long id) {
-        String sql = "SELECT users.id AS user_id, first_name, last_name, phone, email, location, photo, name_institute, " +
-                "specialization, start_education, finish_education, e.description AS ed_description, e.type AS edu_type," +
-                "ex.title as ex_title, start_job, finish_job, ex.description AS ex_description, ss.name AS ss_name, " +
+        String sql = "SELECT users.id AS user_id, first_name, last_name, phone, email, location, photo, e.id AS edu_id, name_institute, " +
+                "specialization, start_education, finish_education, e.description AS edu_description, e.type AS edu_type," +
+                "ex.id as ex_id, ex.title as ex_title, start_job, finish_job, ex.description AS ex_description, ss.name AS ss_name, " +
                 "hs.name AS hs_name, titles.title AS job_title, summary FROM users " +
                 "LEFT JOIN education AS e ON users.id = e.user_id " +
                 "LEFT JOIN experience AS ex on users.id = ex.user_id " +

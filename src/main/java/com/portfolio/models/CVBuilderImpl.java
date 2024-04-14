@@ -49,7 +49,7 @@ public class CVBuilderImpl implements CVBuilder {
 
     @Override
     public CVBuilder addExperience(Experience experience) {
-        if(experience != null) {
+        if(experience != null && experience.getTitle() != null && experience.getExpId() > 0) {
             experiences.add(experience);
         }
         return this;

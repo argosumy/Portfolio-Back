@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Education {
+    private long id;
     private long userId;
     private String nameInstitute;
     private String specialization;
@@ -16,6 +17,14 @@ public class Education {
 
     public Education(long userId) {
         this.userId = userId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getUserId() {

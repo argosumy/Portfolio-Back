@@ -13,6 +13,7 @@ public class EducationRowMapper implements RowMapper<Education> {
     @Override
     public Education getObject(Map<String, Object> row) {
         Education education = new Education((Integer)row.get("user_id"));
+        education.setId(row.get("edu_id") == null ? 0 : (Integer)row.get("edu_id"));
         education.setNameInstitute(row.get("name_institute") == null ? "" : (String)row.get("name_institute"));
         education.setSpecialization(row.get("specialization") == null ? "" : (String)row.get("specialization"));
         education.setStartEducation(row.get("start_education") == null
@@ -23,7 +24,7 @@ public class EducationRowMapper implements RowMapper<Education> {
                 ? null
                 : ((Date)row.get("finish_education")).toLocalDate()
                                     );
-        education.setType(EducationType.valueOf((String) row.get("edu_type")));
+        education.setType(row.get("edu_type") == null ? null : EducationType.valueOf((String) row.get("edu_type")));
         return education;
     }
 }

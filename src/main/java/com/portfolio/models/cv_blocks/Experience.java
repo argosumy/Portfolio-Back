@@ -6,23 +6,41 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Experience implements Comparable<Experience>{
+    private long expId;
     private long userId;
     private String title;
     private LocalDate startJob;
     private LocalDate finishJob;
     private String description;
+    public static final Experience EMPTY_EXPERIENCE = new Experience();
 
-    private Experience(long userId) {
-        this.userId = userId;
+    private Experience() {
+        this.expId = 0;
+        this.userId = 0;
         this.title = "";
         this.description = "";
+        this.finishJob = LocalDate.of(1900, 1, 1);
+        this.startJob = LocalDate.of(1900, 1, 1);
     }
 
-    public Experience(long userId, String title, LocalDate startJob, LocalDate finishJob) {
+    public Experience(long expId) {
+        this.expId = expId;
+    }
+
+    public Experience(long userId, String title, LocalDate startJob, LocalDate finishJob, String description) {
         this.userId = userId;
-        this.title = title;
+        this.title = title == null ? "" : title;
         this.startJob = startJob;
         this.finishJob = finishJob;
+        this.description = description == null ? "" : description;
+    }
+
+    public long getExpId() {
+        return expId;
+    }
+
+    public void setExpId(long expId) {
+        this.expId = expId;
     }
 
     public long getUserId() {
@@ -63,10 +81,6 @@ public class Experience implements Comparable<Experience>{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public static Experience getEmptyExperience(long userId) {
-        return new Experience(userId);
     }
 
     @Override

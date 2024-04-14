@@ -1,4 +1,4 @@
-package com.portfolio.helpers.repository_helpers;
+package com.portfolio.helpers.repository_helpers.repository_convertors;
 
 import org.springframework.stereotype.Component;
 
