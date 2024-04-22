@@ -1,6 +1,7 @@
-package com.portfolio.features.cv_features.modification_cv.services;
+package com.portfolio.features.cv_features.modification_cv.services.experience_service;
 
 import com.portfolio.features.cv_features.modification_cv.repositories.ModificationRepository;
+import com.portfolio.features.cv_features.modification_cv.services.ModificationService;
 import com.portfolio.models.cv_blocks.Experience;
 import org.springframework.stereotype.Service;
 

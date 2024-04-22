@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS education (
     user_id INT,
     name_institute VARCHAR(300) NOT NULL,
     specialization VARCHAR(250),
+    degree VARCHAR(100),
     start_education DATE,
     finish_education DATE,
     description TEXT,

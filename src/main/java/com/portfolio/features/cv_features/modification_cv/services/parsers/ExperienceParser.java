@@ -12,7 +12,7 @@ import java.util.Map;
 import static com.portfolio.helpers.date_helpers.date_parsers.DateParser.parseDate;
 
 @Component
-public final class ExperienceParser implements JsonParser<Experience> {
+public class ExperienceParser implements DataParser<Experience> {
 
     @Override
     public List<Experience> parse(Map<String, String> data) {

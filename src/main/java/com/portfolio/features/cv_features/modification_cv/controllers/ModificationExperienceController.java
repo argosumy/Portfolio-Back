@@ -1,7 +1,7 @@
 package com.portfolio.features.cv_features.modification_cv.controllers;
 
 import com.portfolio.features.cv_features.modification_cv.services.ModificationService;
-import com.portfolio.features.cv_features.modification_cv.services.parsers.JsonParser;
+import com.portfolio.features.cv_features.modification_cv.services.parsers.DataParser;
 import com.portfolio.models.cv_blocks.Experience;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +12,12 @@ import java.util.Map;
 @RestController
 public class ModificationExperienceController {
     private final ModificationService<Experience> modificationExperience;
-    private final JsonParser<Experience> experienceJsonParser;
+    private final DataParser<Experience> experienceDataParser;
 
     public ModificationExperienceController(ModificationService<Experience> modificationExperience,
-                                            JsonParser<Experience> experienceJsonParser) {
+                                            DataParser<Experience> experienceDataParser) {
         this.modificationExperience = modificationExperience;
-        this.experienceJsonParser = experienceJsonParser;
+        this.experienceDataParser = experienceDataParser;
     }
 
     @PostMapping("/users/{userId}/exp")
@@ -25,7 +25,7 @@ public class ModificationExperienceController {
             "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
     public List<Experience> addNewExperience(@RequestBody Map<String, String> exp, @PathVariable("userId") long userId) {
         exp.put("userId", String.valueOf(userId));
-        modificationExperience.addAll(experienceJsonParser.parse(exp));
+        modificationExperience.addAll(experienceDataParser.parse(exp));
         return null;
     }
 

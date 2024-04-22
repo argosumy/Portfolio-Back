@@ -106,8 +106,8 @@ public class Education {
                 ", nameInstitute='" + nameInstitute + '\'' +
                 ", specialization='" + specialization + '\'' +
                 ", degree='" + degree + '\'' +
-                ", startEducation=" + startEducation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) +
-                ", finishEducation=" + finishEducation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) +
+                ", startEducation=" + (startEducation == null ? "" : startEducation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))) +
+                ", finishEducation=" + (finishEducation == null ? "" : finishEducation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))) +
                 '}';
     }
 }
