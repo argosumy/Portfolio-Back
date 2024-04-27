@@ -4,6 +4,7 @@ import com.portfolio.helpers.repository_helpers.repository_convertors.Repository
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 @Component
 public class SqlBuilder {
@@ -14,7 +15,10 @@ public class SqlBuilder {
         for(Field field : fields) {
             try {
                 field.setAccessible(true);
-                if(field.get(object) != null && !field.get(object).toString().isEmpty()) {
+                if(field.get(object) != null
+                        && !field.get(object).toString().isEmpty()
+                        && !Modifier.isStatic(field.getModifiers())
+                ) {
                     String name = field.getName();
                     if(name.equals("id") ) {
                         id = field.get(object).toString();
