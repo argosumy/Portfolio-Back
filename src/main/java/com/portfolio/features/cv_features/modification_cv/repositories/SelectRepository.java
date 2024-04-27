@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface SelectRepository <T> {
     List<T> getAllElementsByUserId(long userId);
+
 }

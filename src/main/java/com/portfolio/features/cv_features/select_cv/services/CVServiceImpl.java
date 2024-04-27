@@ -39,8 +39,10 @@ public class CVServiceImpl implements CVService {
                 user.setLocation(entry.get("location") == null ? "" : (String) entry.get("location"));
                 user.setPhone(entry.get("phone") == null ? "" : (String) entry.get("phone"));
                 user.setPhoto(entry.get("photo") == null ? "" : (String) entry.get("photo"));
-                String title = entry.get("job_title") == null ? "" : (String) entry.get("job_title");
+                String title = entry.get("job_title") == null ? null : (String) entry.get("job_title");
+                String summary = entry.get("summary") == null ? null : ((String) entry.get("summary"));
                 cvBuilder = new CVBuilderImpl(user, title);
+                cvBuilder.setSummary(summary);
             }
             cvBuilder.addEducation(educationRowMapper.getObject(entry));
             cvBuilder.addExperience(experienceRowMapper.getObject(entry));

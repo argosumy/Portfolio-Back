@@ -16,17 +16,23 @@ public class ExperienceModificationService implements ModificationService<Experi
     }
 
     @Override
-    public void addAll(List<Experience> elements) {
-        elements.forEach(this::add);
+    public void addAll(long userId, List<Experience> elements) {
+        elements.forEach(x -> this.add(userId, x));
     }
 
     @Override
-    public void add(Experience element) {
-        modificationRepository.add(element);
+    public long add(long userId, Experience exp) {
+        return modificationRepository.add(userId, exp);
     }
 
     @Override
-    public void update(Experience element) {
+    public void updateById(long id, Experience exp) {
+
+    }
+
+    @Override
+    public void updateByUserId(long id, Experience exp) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

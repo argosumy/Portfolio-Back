@@ -16,21 +16,27 @@ public class EducationModificationService implements ModificationService<Educati
     }
 
     @Override
-    public void addAll(List<Education> elements) {
-        elements.forEach(this::add);
+    public void addAll(long userId, List<Education> elements) {
+        elements.forEach(x -> this.add(userId, x));
     }
 
     @Override
-    public void add(Education element) {
-        modificationRepository.add(element);
-    }
-
-    @Override
-    public void update(Education element) {
+    public long add(long userId, Education element) {
+        return modificationRepository.add(userId, element);
     }
 
     @Override
     public long removeById(long id) {
         return modificationRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateById(long id, Education element) {
+
+    }
+
+    @Override
+    public void updateByUserId(long id, Education element) {
+        throw new UnsupportedOperationException();
     }
 }

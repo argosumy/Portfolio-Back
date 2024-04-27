@@ -35,7 +35,7 @@ public class ModificationEducationController {
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId)")
     public String addNewEducation(@RequestBody Map<String, String> edu, @PathVariable("userId") long userId) {
         edu.put("userId", String.valueOf(userId));
-        modificationEducation.addAll(educationDataParser.parse(edu));
+        modificationEducation.addAll(userId, educationDataParser.parse(edu));
         return "OK";
     }
 

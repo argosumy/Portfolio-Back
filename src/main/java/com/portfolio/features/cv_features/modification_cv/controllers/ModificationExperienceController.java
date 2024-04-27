@@ -25,7 +25,7 @@ public class ModificationExperienceController {
             "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
     public List<Experience> addNewExperience(@RequestBody Map<String, String> exp, @PathVariable("userId") long userId) {
         exp.put("userId", String.valueOf(userId));
-        modificationExperience.addAll(experienceDataParser.parse(exp));
+        modificationExperience.addAll(userId, experienceDataParser.parse(exp));
         return null;
     }
 

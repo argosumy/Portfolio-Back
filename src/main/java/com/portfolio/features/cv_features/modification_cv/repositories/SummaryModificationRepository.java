@@ -1,36 +1,30 @@
 package com.portfolio.features.cv_features.modification_cv.repositories;
 
-import com.portfolio.models.cv_blocks.Experience;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public class ExperienceModificationRepository implements ModificationRepository<Experience> {
+@Repository("summaryModificationRepository")
+public class SummaryModificationRepository implements ModificationRepository<String> {
     private final NamedParameterJdbcTemplate parameterJdbcTemplate;
 
-    public ExperienceModificationRepository(NamedParameterJdbcTemplate parameterJdbcTemplate) {
+    public SummaryModificationRepository(NamedParameterJdbcTemplate parameterJdbcTemplate) {
         this.parameterJdbcTemplate = parameterJdbcTemplate;
     }
-
     @Override
-    public long add(long userId, Experience experience) {
-        String sql = "INSERT INTO experience (user_id, title, start_job, finish_job, description) VALUES (?, ?, ?, ?, ?) RETURNING id;";
+    public long add(long userId, String summary) {
+        String sql = "INSERT INTO titles (user_id, summary) VALUES (?, ?) RETURNING id;";
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterJdbcTemplate.getJdbcTemplate().update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, userId);
-            ps.setString(2, experience.getTitle());
-            ps.setDate(3, Date.valueOf(experience.getStartJob()));
-            ps.setDate(4, Date.valueOf(experience.getFinishJob()));
-            ps.setString(5, experience.getDescription());
+            ps.setString(2, summary);
             return ps;
         }, keyHolder);
         return (Integer) keyHolder.getKey();
@@ -38,18 +32,23 @@ public class ExperienceModificationRepository implements ModificationRepository<
 
     @Override
     public long deleteById(long id) {
-        String sql = "DELETE FROM experience WHERE id = ?";
-        parameterJdbcTemplate.getJdbcTemplate().update(sql, id);
-        return id;
+        return 0;
     }
 
     @Override
-    public void updateByUserId(long userId, Experience element) {
-        throw new UnsupportedOperationException();
+    public void updateByUserId(long userId, String summary) {
+        String sql = "UPDATE titles SET summary = ? WHERE user_id = ?;";
+        parameterJdbcTemplate.getJdbcTemplate().update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, summary.isEmpty() ? null : summary );
+            ps.setLong(2, userId);
+            return ps;
+        });
     }
 
     @Override
     public List<Map<String, Object>> getTableRowsByUserId(long userId) {
-        return null;
+        String sql = "SELECT * FROM titles WHERE user_id = ?;";
+        return parameterJdbcTemplate.getJdbcTemplate().queryForList(sql,userId);
     }
 }
