@@ -8,27 +8,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-public class ModificationSummaryController {
+public class TitleModificationController {
     private final ModificationService<String> modificationService;
 
-    public ModificationSummaryController(@Qualifier("summaryModificationService") ModificationService<String> modificationService) {
+    public TitleModificationController(@Qualifier("titleModificationService") ModificationService<String> modificationService) {
         this.modificationService = modificationService;
     }
 
-    @PostMapping("/users/{userId}/summary")
+    @PostMapping("/users/{userId}/title")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
             "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
-    public long addSummary(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
-        return modificationService.add(userId, data.get("summary"));
+    public long addTitle(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
+        return modificationService.add(userId, data.get("title"));
     }
 
-    @PutMapping("/users/{userId}/summary")
+    @PutMapping("/users/{userId}/title")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
             "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
-    public long updateSummary(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
-        modificationService.updateByUserId(userId, data.get("summary"));
+    public long updateTitle(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
+        modificationService.updateByUserId(userId, data.get("title"));
         return userId;
     }
-
-
 }

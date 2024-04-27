@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class ModificationEducationController {
+public class EducationModificationController {
     private final ModificationService<Education> modificationEducation;
     private final SelectService<Education> selectService;
     private final DataParser<Education> educationDataParser;
 
-    public ModificationEducationController(ModificationService<Education> modificationEducation,
+    public EducationModificationController(ModificationService<Education> modificationEducation,
                                            SelectService<Education> selectService,
                                            DataParser<Education> educationDataParser) {
         this.modificationEducation = modificationEducation;

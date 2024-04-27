@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class ModificationExperienceController {
+public class ExperienceModificationController {
     private final ModificationService<Experience> modificationExperience;
     private final DataParser<Experience> experienceDataParser;
 
-    public ModificationExperienceController(ModificationService<Experience> modificationExperience,
+    public ExperienceModificationController(ModificationService<Experience> modificationExperience,
                                             DataParser<Experience> experienceDataParser) {
         this.modificationExperience = modificationExperience;
         this.experienceDataParser = experienceDataParser;
