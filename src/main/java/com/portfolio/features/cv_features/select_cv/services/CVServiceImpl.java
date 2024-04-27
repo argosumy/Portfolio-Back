@@ -36,9 +36,9 @@ public class CVServiceImpl implements CVService {
             if(user == null) {
                 user = new User((String)entry.get("first_name"), (String)entry.get("last_name"), (String)entry.get("email"));
                 user.setId(userId);
-                user.setLocation(entry.get("location") == null ? "" : (String) entry.get("location"));
-                user.setPhone(entry.get("phone") == null ? "" : (String) entry.get("phone"));
-                user.setPhoto(entry.get("photo") == null ? "" : (String) entry.get("photo"));
+                user.setLocation(entry.get("location") == null ? null : (String) entry.get("location"));
+                user.setPhone(entry.get("phone") == null ? null : (String) entry.get("phone"));
+                user.setPhoto(entry.get("photo") == null ? null : (String) entry.get("photo"));
                 String title = entry.get("job_title") == null ? null : (String) entry.get("job_title");
                 String summary = entry.get("summary") == null ? null : ((String) entry.get("summary"));
                 cvBuilder = new CVBuilderImpl(user, title);
