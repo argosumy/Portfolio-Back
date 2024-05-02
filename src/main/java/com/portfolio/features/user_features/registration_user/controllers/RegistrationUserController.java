@@ -20,4 +20,5 @@ public class RegistrationUserController {
         return registrationUserService.addNewUser(user, userDto.getPassword());
     }
 
+
 }

@@ -41,4 +41,10 @@ public class ModificationUserController {
     public List<User> getAllUsers() {
         return modificationUserService.getAllUsers();
     }
+
+    @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #id)")
+    @DeleteMapping("/users/{id}/phone")
+    public long deleteUsersPhone(@PathVariable("id") long id) {
+        return modificationUserService.deletePhoneByUserId(id);
+    }
 }

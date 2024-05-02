@@ -4,7 +4,6 @@ import com.portfolio.features.user_features.modification_user.repositories.Modif
 import com.portfolio.helpers.repository_helpers.repository_convertors.RepositoryFieldConverter;
 import com.portfolio.helpers.repository_helpers.SqlBuilder;
 import com.portfolio.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +35,7 @@ public class ModificationUserServiceImpl implements ModificationUserService {
     @Transactional
     public User updateUser(User user) {
         String sql = sqlBuilder.buildSql(UPDATE_USER_SQL_TEMPLATE, user, converter);
-        if(repository.updateUser(sql) > 0) {
+        if(!sql.isEmpty() && repository.updateUser(sql) > 0) {
               return repository.getUserById(user.getId());
         }
         throw new RuntimeException();
@@ -50,5 +49,11 @@ public class ModificationUserServiceImpl implements ModificationUserService {
     @Override
     public List<User> getAllUsers() {
         return repository.getAllUsers();
+    }
+
+    @Override
+    public long deletePhoneByUserId(long id) {
+        String sql = String.format("UPDATE users SET phone = null WHERE id = %s;", id);
+        return repository.updateUser(sql);
     }
 }

@@ -11,4 +11,6 @@ public interface ModificationUserService {
     int deleteUserById(long id);
     User getUserById(long id);
     List<User> getAllUsers();
+    long deletePhoneByUserId(long id);
+
 }
