@@ -38,17 +38,11 @@ CREATE TABLE IF NOT EXISTS education (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS soft_skills (
+CREATE TABLE IF NOT EXISTS skills (
     id SERIAL PRIMARY KEY,
     user_id INT,
-    name VARCHAR(150),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS hard_skills (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    name VARCHAR(150),
+    name TEXT,
+    type VARCHAR(50),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

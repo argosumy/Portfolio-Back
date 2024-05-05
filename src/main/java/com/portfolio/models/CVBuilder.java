@@ -8,6 +8,8 @@ public interface CVBuilder {
     CVBuilder addExperience(Experience experience);
     CVBuilder addHardSkills(String hardSkill);
     CVBuilder addSoftSkills(String softSkill);
+    CVBuilder addHardSkills(String textSkills, String separator);
+    CVBuilder addSoftSkills(String textSkills, String separator);
     CVBuilder setSummary(String summary);
     CurriculumVitae createCV();
 }

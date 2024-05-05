@@ -8,6 +8,7 @@ import com.portfolio.models.CurriculumVitae;
 import com.portfolio.models.User;
 import com.portfolio.models.cv_blocks.Education;
 import com.portfolio.models.cv_blocks.Experience;
+import com.portfolio.models.cv_blocks.SkillsType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,10 +45,14 @@ public class CVServiceImpl implements CVService {
                 cvBuilder = new CVBuilderImpl(user, title);
                 cvBuilder.setSummary(summary);
             }
+            if(entry.get("s_type") != null && entry.get("s_type").equals(SkillsType.HARD.name())) {
+                cvBuilder.addHardSkills((String)entry.get("s_name"), ", ");
+            }
+            if(entry.get("s_type") != null && entry.get("s_type").equals(SkillsType.SOFT.name())) {
+                cvBuilder.addSoftSkills((String)entry.get("s_name"), ", ");
+            }
             cvBuilder.addEducation(educationRowMapper.getObject(entry));
             cvBuilder.addExperience(experienceRowMapper.getObject(entry));
-            cvBuilder.addHardSkills((String)entry.get("hs_name"));
-            cvBuilder.addSoftSkills((String)entry.get("ss_name"));
         }
         assert cvBuilder != null;
         return cvBuilder.createCV();

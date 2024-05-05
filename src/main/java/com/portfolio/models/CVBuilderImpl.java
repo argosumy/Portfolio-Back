@@ -5,6 +5,7 @@ import com.portfolio.models.cv_blocks.EducationComparator;
 import com.portfolio.models.cv_blocks.Experience;
 import com.portfolio.models.cv_blocks.ExperienceComparator;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,6 +68,26 @@ public class CVBuilderImpl implements CVBuilder {
     public CVBuilder addSoftSkills(String softSkill) {
         if(softSkill != null) {
             softSkills.add(softSkill);
+        }
+        return this;
+    }
+
+    @Override
+    public CVBuilder addHardSkills(String textSkills, String separator) {
+        if(textSkills != null && hardSkills.isEmpty()) {
+            hardSkills.addAll(Arrays.stream(textSkills.split(separator))
+                    .map(String::trim).collect(Collectors.toList())
+                              );
+        }
+        return this;
+    }
+
+    @Override
+    public CVBuilder addSoftSkills(String textSkills, String separator) {
+        if(textSkills != null && softSkills.isEmpty()) {
+            softSkills.addAll(Arrays.stream(textSkills.split(separator))
+                    .map(String::trim).collect(Collectors.toList())
+            );
         }
         return this;
     }

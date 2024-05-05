@@ -35,7 +35,7 @@ public class UsersCardRepositoryImpl implements UsersCardRepository {
     @Override
     public Collection<BusinessCardUser> getUsersCardNotHidden() {
         final BusinessCardUsersRowCallBackHandler rowCallBackHandler = new BusinessCardUsersRowCallBackHandler();
-        final String sql = "SELECT * FROM users LEFT JOIN hard_skills AS hs ON users.id = hs.user_id " +
+        final String sql = "SELECT * FROM users LEFT JOIN skills AS hs ON users.id = hs.user_id " +
                 "LEFT JOIN titles ON users.id = titles.user_id WHERE cv_hidden = false;";
         jdbcTemplate.query(sql, rowCallBackHandler);
         return rowCallBackHandler.getResult().values();

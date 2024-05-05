@@ -8,6 +8,7 @@ $do$
         END IF;
         IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@ua.fm') THEN
             INSERT INTO users(first_name, last_name, email) VALUES ('Liubov', 'Romanova', 'notexist@ua.fm');
+            INSERT INTO user_security(user_id, password, role) VALUES (2, '$2a$08$xAi3bVoUxcCVRl2vnC1IR.bAXI/G0cJp1C4VlymP98qDqMqleqr4K','USER');
         END IF;
         IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@tol.com') THEN
             INSERT INTO users(first_name, last_name, email) VALUES ('Michael', 'Barnes', 'notexist@best.com');
@@ -43,28 +44,10 @@ Technology Stack:
 Java, Spring Boot, PostgreSQL, Minio, AWS S3,Flyway, Swagger, Docker Tasks/features: - project configuration
 - module of authentication/authorization - CRUD operations for users - file storage - service of notifications - unit tests');
         END IF;
-        --INSERT hard-skills
-        IF NOT EXISTS (SELECT * FROM hard_skills WHERE user_id = 1) THEN
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Java');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Spring Boot');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'PostgreSQL');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'JavaScript');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'HTML, CSS');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'CSS');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Docker');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Swagger');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Minio');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'Flyaway');
-            INSERT INTO hard_skills(user_id, name) VALUES (1, 'JDBC');
-        END IF;
-        --INSERT soft-skills
-        IF NOT EXISTS (SELECT * FROM soft_skills WHERE user_id = 1) THEN
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Eeasy learning');
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Stress-resistant');
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Self-organized');
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Open for challenges');
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Positive attitude');
-            INSERT INTO soft_skills(user_id, name) VALUES (1, 'Excellent communication skills');
+        --INSERT skills
+        IF NOT EXISTS (SELECT * FROM skills WHERE user_id = 1) THEN
+            INSERT INTO skills(user_id, name, type) VALUES (1, 'Java, Spring Boot, PostgreSQL, JDBC, JavaScript, HTML, CSS, Docker, Swagger, Minio, Flyaway', 'HARD');
+            INSERT INTO skills(user_id, name, type) VALUES (1, 'Eeasy learning, Stress-resistant, Self-organized, Open for challenges, Positive attitude, Excellent communication skills', 'SOFT');
         END IF;
         --INSERT title
         IF NOT EXISTS (SELECT * FROM titles WHERE user_id = 1) THEN

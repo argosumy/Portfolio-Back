@@ -4,6 +4,7 @@ import com.portfolio.models.cv_blocks.Education;
 import com.portfolio.models.cv_blocks.Experience;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CurriculumVitae {
     private final User user;
@@ -39,12 +40,25 @@ public class CurriculumVitae {
         this.hardSkills.addAll(hardSkills);
     }
 
+    public void addHardSkills(String skills, String separator) {
+            addHardSkills(separateSkills(skills, separator));
+    }
+
     public List<String> getSoftSkills() {
         return softSkills;
     }
 
     public void addSoftSkills(Collection<String> softSkills) {
         this.softSkills.addAll(softSkills);
+    }
+
+    public void addSoftSkills(String skills, String separator) {
+        addHardSkills(separateSkills(skills, separator));
+    }
+
+    private List<String> separateSkills(String skills, String separator) {
+        return Arrays.stream(skills.split(separator))
+                .map(String::trim).collect(Collectors.toList());
     }
 
     protected void addEducations(Collection<Education> educations) {
