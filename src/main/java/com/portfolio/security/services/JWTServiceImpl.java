@@ -24,6 +24,7 @@ public class JWTServiceImpl implements JWTService{
         var authUser = authenticationManager.authenticate(userNamePassword);
         String token = tokenProvider.generateAccessToken((UserDetails) authUser.getPrincipal());
         long userId = ((UserSecurity)authUser.getPrincipal()).getId();
-        return new TokenDto(userId, token);
+        String userLogin = ((UserSecurity)authUser.getPrincipal()).getUsername();
+        return new TokenDto(userId, token, userLogin);
     }
 }

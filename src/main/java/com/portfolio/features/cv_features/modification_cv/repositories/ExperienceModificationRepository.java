@@ -29,7 +29,7 @@ public class ExperienceModificationRepository implements ModificationRepository<
             ps.setLong(1, userId);
             ps.setString(2, experience.getTitle());
             ps.setDate(3, Date.valueOf(experience.getStartJob()));
-            ps.setDate(4, Date.valueOf(experience.getFinishJob()));
+            ps.setDate(4, experience.getFinishJob() == null ? null : Date.valueOf(experience.getFinishJob()));
             ps.setString(5, experience.getDescription());
             return ps;
         }, keyHolder);
