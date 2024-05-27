@@ -56,7 +56,8 @@ public class WebSecurityConfig {
                 "http://172.30.128.1:8080",
                 "http://192.168.0.104:8080",
                 "http://127.0.0.1:8080",
-                "http://127.0.0.1:5500"
+                "http://127.0.0.1:5500",
+                "http://162.19.229.244:8080"
                 ));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.addAllowedHeader(HttpHeaders.CONTENT_TYPE);
