@@ -1,0 +1,37 @@
+version: '1.0'
+services:
+
+  db:
+    image: 'postgres'
+    restart: always
+    ports:
+    - '5460:5432'
+    environment:
+      POSTGRES_PASSWORD: 'gt-i8160'
+      POSTGRES_DB: 'portfolio'
+    volumes:
+    - ./log-directory:/var/lib/postgresql
+
+  portfolio-back:
+    build: ../
+    restart: always
+    ports:
+    - '3000:3000'
+    environment:
+      - DATASOURCE_HOST=db
+      - DATASOURCE_PORT=5432
+    depends_on:
+      - db
+
+  portfolio-front:
+    build:
+      context: ./frontend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - portfolio-back
+
+
+
+
