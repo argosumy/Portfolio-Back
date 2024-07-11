@@ -22,7 +22,7 @@ public class ExperienceModificationController {
 
     @PostMapping("/users/{userId}/exp")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public List<Experience> addNewExperience(@RequestBody Map<String, String> exp, @PathVariable("userId") long userId) {
         exp.put("userId", String.valueOf(userId));
         modificationExperience.addAll(userId, experienceDataParser.parse(exp));
@@ -31,7 +31,7 @@ public class ExperienceModificationController {
 
     @DeleteMapping("/users/{userId}/exp/{id}")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public long deleteExperienceById(@PathVariable("id") long id, @PathVariable("userId") long userId) {
         return modificationExperience.removeById(id);
     }

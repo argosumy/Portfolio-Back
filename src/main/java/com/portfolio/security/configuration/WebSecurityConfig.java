@@ -1,6 +1,6 @@
 package com.portfolio.security.configuration;
 
-import com.portfolio.security.configuration.auth.SecurityFilter;
+import com.portfolio.security.services.CaptchaService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -27,24 +27,25 @@ import java.util.Arrays;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     private final SecurityFilter securityFilter;
+    private final CaptchaService captchaService;
 
-    public WebSecurityConfig(SecurityFilter securityFilter) {
+    public WebSecurityConfig(SecurityFilter securityFilter, CaptchaService captchaService) {
         this.securityFilter = securityFilter;
+        this.captchaService = captchaService;
     }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req ->
-                        req
-//                              .requestMatchers("/**").permitAll())
-                                .requestMatchers("/auth/signin", "/users/cards", "/test/**", "/users/*/cv").permitAll()
+                .authorizeHttpRequests(req -> req
+                                .requestMatchers("/auth/signin", "/users/cards", "/users/captcha","/users/*/cv").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/users").permitAll()
                                 .anyRequest().authenticated())
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .csrf(CsrfConfigurer::disable)
-        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new CaptchaFilter(captchaService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -62,6 +63,8 @@ public class WebSecurityConfig {
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.addAllowedHeader(HttpHeaders.CONTENT_TYPE);
         corsConfiguration.addAllowedHeader(HttpHeaders.AUTHORIZATION);
+        corsConfiguration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;

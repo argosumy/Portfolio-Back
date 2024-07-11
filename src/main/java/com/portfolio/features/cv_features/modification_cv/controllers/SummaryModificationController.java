@@ -17,14 +17,14 @@ public class SummaryModificationController {
 
     @PostMapping("/users/{userId}/summary")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public long addSummary(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
         return modificationService.add(userId, data.get("summary"));
     }
 
     @PutMapping("/users/{userId}/summary")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public long updateSummary(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
         modificationService.updateByUserId(userId, data.get("summary"));
         return userId;

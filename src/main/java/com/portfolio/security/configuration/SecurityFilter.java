@@ -1,4 +1,4 @@
-package com.portfolio.security.configuration.auth;
+package com.portfolio.security.configuration;
 
 import com.portfolio.security.repositories.SecurityRepository;
 import com.portfolio.security.services.TokenProviderImpl;

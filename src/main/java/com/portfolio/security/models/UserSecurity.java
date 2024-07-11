@@ -65,4 +65,8 @@ public class UserSecurity implements UserDetails {
     public long getId() {
         return id;
     }
+
+    public Roles getRole() {
+        return role;
+    }
 }

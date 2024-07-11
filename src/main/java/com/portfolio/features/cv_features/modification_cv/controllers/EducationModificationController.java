@@ -26,7 +26,7 @@ public class EducationModificationController {
 
     @GetMapping("/users/{userId}/edu")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public List<Education> getEducationByUserId(@PathVariable("userId") long userId) {
         return selectService.selectAllElementsByUserId(userId);
     }

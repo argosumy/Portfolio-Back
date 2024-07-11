@@ -16,27 +16,27 @@ public class ModificationUserController {
     }
 
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #id) " +
-            "OR hasAnyAuthority('DIRECTOR')")
+            "OR hasAnyAuthority('HIGH_PRIORITY')")
     @PutMapping("/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable("id") long id) {
         user.setId(id);
         return modificationUserService.updateUser(user);
     }
 
-    @PreAuthorize("hasAnyAuthority('MODIFICATION_ADMIN','DIRECTOR') AND #id != 1")
+    @PreAuthorize("hasAnyAuthority('HIGH_PRIORITY') AND #id != 1")
     @DeleteMapping("/users/{id}")
     public int deleteUser(@PathVariable("id") long id) {
         return modificationUserService.deleteUserById(id);
     }
 
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #id) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     @GetMapping("/users/{id}")
     public User findUserById(@PathVariable("id") long id) {
         return modificationUserService.getUserById(id);
     }
 
-    @PreAuthorize("hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MODIFICATION_CV')")
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return modificationUserService.getAllUsers();

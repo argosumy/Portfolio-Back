@@ -1,7 +1,7 @@
 package com.portfolio.features.user_features.registration_user.controllers;
 
 public class UserDto {
-    private String  firstName;
+    private String firstName;
     private String lastName;
     private String email;
     private String password;

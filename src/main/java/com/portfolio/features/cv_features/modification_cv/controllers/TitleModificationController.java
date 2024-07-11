@@ -17,14 +17,14 @@ public class TitleModificationController {
 
     @PostMapping("/users/{userId}/title")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public long addTitle(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
         return modificationService.add(userId, data.get("title"));
     }
 
     @PutMapping("/users/{userId}/title")
     @PreAuthorize("@customAuthorizationServiceByUserId.isAccountOwner(authentication, #userId) " +
-            "OR hasAnyAuthority('DIRECTOR', 'MODIFICATION_ADMIN')")
+            "OR hasAnyAuthority('MODIFICATION_CV')")
     public long updateTitle(@RequestBody Map<String, String> data, @PathVariable("userId") long userId) {
         modificationService.updateByUserId(userId, data.get("title"));
         return userId;
