@@ -10,9 +10,10 @@ CREATE TABLE IF NOT EXISTS users (
     );
 
 CREATE TABLE IF NOT EXISTS user_security (
-    user_id INT UNIQUE,
+    user_id INT,
     password VARCHAR(150) NOT NULL,
-    role VARCHAR(50) DEFAULT 'USER'
+    role VARCHAR(50) DEFAULT 'USER',
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS experience (
@@ -22,7 +23,7 @@ CREATE TABLE IF NOT EXISTS experience (
     start_job DATE NOT NULL,
     finish_job DATE,
     description TEXT,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS education (
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS education (
     finish_education DATE,
     description TEXT,
     type VARCHAR(50),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS skills (
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS skills (
     user_id INT,
     name TEXT,
     type VARCHAR(50),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS titles (
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS titles (
     user_id INT,
     title VARCHAR(150) UNIQUE NOT NULL,
     summary TEXT,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
