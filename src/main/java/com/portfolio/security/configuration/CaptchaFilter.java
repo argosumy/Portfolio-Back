@@ -29,7 +29,7 @@ public class CaptchaFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestURI = request.getRequestURI();
-        if(requestURI.contains("users") && request.getMethod().equals("POST") || requestURI.contains("captcha")) {
+        if(requestURI.contains("/captcha") && request.getMethod().equals("POST") || requestURI.contains("captcha")) {
             ResponseCookie cookie = ResponseCookie.from("JSESSIONID", request.getSession().getId())
                     .httpOnly(true)
                     .secure(true)
@@ -39,7 +39,7 @@ public class CaptchaFilter extends GenericFilterBean {
                     .build();
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         }
-        if(requestURI.contains("users") && request.getMethod().equals("POST")) {
+        if(requestURI.equals("/users") && request.getMethod().equals("POST")) {
             CachedBodyHttpServletRequest cachedBody = new CachedBodyHttpServletRequest(request);
             String body = new String(cachedBody.getCachedBody());
             JsonObject jsonObject = JsonParser.parseString(body).getAsJsonObject();

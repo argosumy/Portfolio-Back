@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS experience (
 CREATE TABLE IF NOT EXISTS education (
     id SERIAL PRIMARY KEY,
     user_id INT,
-    name_institute VARCHAR(300) NOT NULL,
+    name_institute VARCHAR(300),
     specialization VARCHAR(250),
     degree VARCHAR(100),
     start_education DATE,
