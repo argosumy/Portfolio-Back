@@ -4,4 +4,5 @@ import com.portfolio.models.CurriculumVitae;
 
 public interface CVService {
     CurriculumVitae getCVbyUserId(long userId);
+    long manageCVAccess(long userId, boolean cvHidden);
 }

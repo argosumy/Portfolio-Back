@@ -14,6 +14,7 @@ public class CurriculumVitae {
     private final List<String> softSkills;
     private final List<Experience> experiences;
     private final List<Education> educations;
+    private boolean cvHidden;
 
     protected CurriculumVitae(User user, String title) {
         this.hardSkills = new ArrayList<>();
@@ -83,5 +84,13 @@ public class CurriculumVitae {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public boolean isHidden() {
+        return cvHidden;
+    }
+
+    public void setHidden(boolean cvHidden) {
+        this.cvHidden = cvHidden;
     }
 }

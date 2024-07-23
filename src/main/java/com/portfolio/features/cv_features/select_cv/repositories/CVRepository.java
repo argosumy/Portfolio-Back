@@ -5,4 +5,5 @@ import java.util.Map;
 
 public interface CVRepository {
     List<Map<String, Object>> getFullDataByUserId(long id);
+    long manageCVAccess(long usreId, boolean cvHidden);
 }

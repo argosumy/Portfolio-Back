@@ -11,5 +11,6 @@ public interface CVBuilder {
     CVBuilder addHardSkills(String textSkills, String separator);
     CVBuilder addSoftSkills(String textSkills, String separator);
     CVBuilder setSummary(String summary);
+    CVBuilder setCVAccess(boolean cvAccess);
     CurriculumVitae createCV();
 }

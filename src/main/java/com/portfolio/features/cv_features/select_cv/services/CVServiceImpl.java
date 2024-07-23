@@ -44,6 +44,7 @@ public class CVServiceImpl implements CVService {
                 String summary = entry.get("summary") == null ? null : ((String) entry.get("summary"));
                 cvBuilder = new CVBuilderImpl(user, title);
                 cvBuilder.setSummary(summary);
+                cvBuilder.setCVAccess((Boolean) entry.get("cv_hidden"));
             }
             if(entry.get("s_type") != null && entry.get("s_type").equals(SkillsType.HARD.name())) {
                 cvBuilder.addHardSkills((String)entry.get("s_name"), ", ");
@@ -56,5 +57,10 @@ public class CVServiceImpl implements CVService {
         }
         assert cvBuilder != null;
         return cvBuilder.createCV();
+    }
+
+    @Override
+    public long manageCVAccess(long userId, boolean cvHidden) {
+        return cvRepository.manageCVAccess(userId, cvHidden);
     }
 }

@@ -93,6 +93,12 @@ public class CVBuilderImpl implements CVBuilder {
     }
 
     @Override
+    public CVBuilder setCVAccess(boolean cvAccess) {
+        curriculumVitae.setHidden(cvAccess);
+        return this;
+    }
+
+    @Override
     public CurriculumVitae createCV() {
         curriculumVitae.addEducations(educations
                 .stream()
@@ -106,4 +112,5 @@ public class CVBuilderImpl implements CVBuilder {
         curriculumVitae.addSoftSkills(softSkills);
         return curriculumVitae;
     }
+
 }
