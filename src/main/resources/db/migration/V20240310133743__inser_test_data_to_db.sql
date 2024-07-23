@@ -2,16 +2,9 @@ DO
 $do$
     BEGIN
         --INSERT users
-        IF NOT EXISTS (SELECT * FROM users WHERE email = 'argosumy@gmail.com') THEN
-            INSERT INTO users(first_name, last_name, email) VALUES ('Valerii','Lozynskyi','loz.valerii@gmail.com');
+        IF NOT EXISTS (SELECT * FROM users WHERE email = 'loz.valerii@gmail.com') THEN
+            INSERT INTO users(first_name, last_name, email, cv_hidden) VALUES ('Valerii','Lozynskyi','loz.valerii@gmail.com', false);
             INSERT INTO user_security(user_id, password, role) VALUES (1, '$2a$08$xAi3bVoUxcCVRl2vnC1IR.bAXI/G0cJp1C4VlymP98qDqMqleqr4K','OWNER');
-        END IF;
-        IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@ua.fm') THEN
-            INSERT INTO users(first_name, last_name, email) VALUES ('Liubov', 'Romanova', 'notexist@ua.fm');
-            INSERT INTO user_security(user_id, password, role) VALUES (2, '$2a$08$xAi3bVoUxcCVRl2vnC1IR.bAXI/G0cJp1C4VlymP98qDqMqleqr4K','USER');
-        END IF;
-        IF NOT EXISTS (SELECT * FROM users WHERE email = 'notexist@tol.com') THEN
-            INSERT INTO users(first_name, last_name, email) VALUES ('Michael', 'Barnes', 'notexist@best.com');
         END IF;
         --INSERT education
         IF NOT EXISTS (SELECT * FROM education WHERE user_id = '1') THEN
@@ -25,15 +18,6 @@ $do$
             VALUES (1, 'Internship SPD University', '2021-05-01', 'TRAINING');
             INSERT INTO education(user_id, specialization, start_education, finish_education, type)
             VALUES (1, 'Java course Netcracker', '2019-09-01', '2020-05-01', 'TRAINING');
-        END IF;
-
-        IF NOT EXISTS (SELECT * FROM education WHERE user_id = '2') THEN
-            INSERT INTO education(user_id, name_institute, specialization, start_education, finish_education, type)
-            VALUES (2, 'Sumy National Agrarian University', 'Management', '2010-08-01', '2015-05-25', 'EDUCATION');
-        END IF;
-        IF NOT EXISTS (SELECT * FROM education WHERE user_id = '3') THEN
-            INSERT INTO education(user_id, name_institute, start_education, finish_education, type)
-            VALUES (3, 'University of Maryland School of Law', '2005-09-01', '2010-06-25', 'EDUCATION');
         END IF;
         --INSERT experience
         IF NOT EXISTS (SELECT * FROM experience WHERE id = 1) THEN

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(60) UNIQUE NOT NULL,
     location VARCHAR(30),
     photo TEXT,
-    cv_hidden BOOLEAN DEFAULT false
+    cv_hidden BOOLEAN DEFAULT true
     );
 
 CREATE TABLE IF NOT EXISTS user_security (
