@@ -1,5 +1,6 @@
 package com.portfolio.security.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -11,10 +12,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class CaptchaService {
+    @Value("${captcha.path}")
+    private String path;
     private final Map<String, UserAnswer> answers = new HashMap<>();
 
     public File generateCaptcha(String sessionId) throws NoSuchAlgorithmException {
-        final String path = "src/main/resources/static/pictures/captcha";
         final File srsCaptcha = new File(path);
         File result = null;
         if(srsCaptcha.isDirectory()) {
