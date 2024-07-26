@@ -54,7 +54,6 @@ public class CaptchaService {
     }
 
     public void cleanAnswers() {
-        System.out.println("Clean ");
         List<String> expiredKeys = answers.entrySet()
                 .stream()
                 .filter(x -> x.getValue().isExpired())
