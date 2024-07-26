@@ -20,6 +20,8 @@ services:
     environment:
       - DATASOURCE_HOST=db
       - DATASOURCE_PORT=5432
+    volumes:
+      - ./log-directory/log-back:/log-back
     depends_on:
       - db
 

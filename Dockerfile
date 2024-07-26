@@ -1,4 +1,5 @@
 FROM openjdk:17-alpine
+VOLUME /log-back
 COPY . /app
 WORKDIR /app
 RUN chmod +x gradlew
