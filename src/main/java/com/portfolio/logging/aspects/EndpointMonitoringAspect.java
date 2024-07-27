@@ -44,13 +44,12 @@ public class EndpointMonitoringAspect {
 
     private void logEndpointExecution(String endpoint, String method, String remoteAdr, Instant start, Instant end) {
         long duration = end.toEpochMilli() - start.toEpochMilli();
-        logger.info("\n\r{}-{}, DURATION : {}, IP {}", method, endpoint, duration, remoteAdr);
+        logger.info("\r{}-{}, DURATION : {}, IP {}", method, endpoint, duration, remoteAdr);
         // Здесь можно добавить логику для сохранения метрик или отправки их в систему мониторинга
     }
 
     private void logEndpointError(String endpoint, String method, Exception e) {
-        System.err.println(String.format("Error in endpoint: %s %s, Error: %s", method, endpoint, e.getMessage()));
-        logger.error("\n\r{}-{}\n\r{}", method, endpoint, e.getMessage());
+        logger.error("\r{}-{} - {}", method, endpoint, e.getMessage());
         // Здесь можно добавить логику для обработки ошибок
     }
 
