@@ -40,17 +40,24 @@ public class HardSkillsModificationRepository implements ModificationRepository<
 
     @Override
     public void updateByUserId(long userId, String element) {
-        final String sql = "UPDATE skills SET name = ? WHERE user_id = ? AND type = 'HARD';";
-        parameterJdbcTemplate.getJdbcTemplate().update(con -> {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, element);
-            ps.setLong(2, userId);
-            return ps;
-        });
+        List<Map<String, Object>> hardSkills = getTableRowsByUserId(userId);
+        if(hardSkills.isEmpty()) {
+            add(userId, element);
+        } else {
+            final String sql = "UPDATE skills SET name = ? WHERE user_id = ? AND type = 'HARD';";
+            parameterJdbcTemplate.getJdbcTemplate().update(con -> {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, element);
+                ps.setLong(2, userId);
+                return ps;
+            });
+        }
     }
 
     @Override
     public List<Map<String, Object>> getTableRowsByUserId(long userId) {
-        return null;
+        final String sql = "SELECT * FROM skills WHERE user_id = ? AND type = 'HARD';";
+        return parameterJdbcTemplate.getJdbcTemplate().queryForList(sql, userId);
     }
+
 }
