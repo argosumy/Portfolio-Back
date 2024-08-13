@@ -37,6 +37,7 @@ public class EducationParser implements DataParser<Education> {
         LocalDate finishEdu = parseDate(finishEduText, "yyyy-MM-dd");
         Education edu = new Education(userId);
         edu.setType(type);
+        edu.setDescription(description);
         edu.setSpecialization(specialization);
         edu.setNameInstitute(institution);
         edu.setDegree(degree);

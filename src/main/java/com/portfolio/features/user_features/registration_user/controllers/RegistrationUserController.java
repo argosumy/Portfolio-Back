@@ -24,13 +24,10 @@ public class RegistrationUserController {
 
     @GetMapping("/users/captcha")
     public ResponseEntity<byte[]> getCaptcha(HttpSession httpSession) throws IOException, NoSuchAlgorithmException {
-        File captchaFile = captchaService.generateCaptcha(httpSession.getId());
-        try(FileInputStream fileInputStream = new FileInputStream(captchaFile)) {
-            byte[] imageBytes = fileInputStream.readAllBytes();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG);
-            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-        }
+        byte[] imageBytes = captchaService.generateCaptcha(httpSession.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
     }
 
     @PostMapping("/users")

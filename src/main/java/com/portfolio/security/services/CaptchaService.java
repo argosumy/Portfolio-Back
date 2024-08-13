@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -16,7 +18,14 @@ public class CaptchaService {
     private String path;
     private final Map<String, UserAnswer> answers = new HashMap<>();
 
-    public File generateCaptcha(String sessionId) throws NoSuchAlgorithmException {
+    public byte[] generateCaptcha(String sessionId) throws NoSuchAlgorithmException, IOException {
+        final File captchaFile = generateCaptchaFile(sessionId);
+        try(FileInputStream fileInputStream = new FileInputStream(captchaFile)) {
+            return fileInputStream.readAllBytes();
+        }
+    }
+
+    private File generateCaptchaFile(String sessionId) throws NoSuchAlgorithmException {
         final File srsCaptcha = new File(path);
         File result = null;
         if(srsCaptcha.isDirectory()) {
@@ -30,7 +39,6 @@ public class CaptchaService {
                 if(captchaArray.length > 0) {
                     int answer = Integer.parseInt(packages[index].getName());
                     answers.put(sessionId, new UserAnswer(answer));
-                    System.out.println("Size answers " + answers.keySet().size());
                     result = captchaArray[0];
                 }
             }

@@ -14,6 +14,7 @@ public class Education {
     private LocalDate startEducation;
     private LocalDate finishEducation;
     private EducationType type;
+    private String description;
 
     public Education(long userId) {
         this.userId = userId;
@@ -81,6 +82,14 @@ public class Education {
 
     public void setType(EducationType type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

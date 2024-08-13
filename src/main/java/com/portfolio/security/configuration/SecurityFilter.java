@@ -1,7 +1,7 @@
 package com.portfolio.security.configuration;
 
 import com.portfolio.security.repositories.SecurityRepository;
-import com.portfolio.security.services.TokenProviderImpl;
+import com.portfolio.security.services.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +16,10 @@ import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    private final TokenProviderImpl tokenProviderImpl;
+    private final TokenProvider tokenProviderImpl;
     private final SecurityRepository securityRepository;
 
-    public SecurityFilter(TokenProviderImpl tokenProviderImpl, SecurityRepository securityRepository) {
+    public SecurityFilter(TokenProvider tokenProviderImpl, SecurityRepository securityRepository) {
         this.tokenProviderImpl = tokenProviderImpl;
         this.securityRepository = securityRepository;
     }

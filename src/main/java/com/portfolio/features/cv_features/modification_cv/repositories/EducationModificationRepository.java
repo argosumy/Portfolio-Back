@@ -23,7 +23,7 @@ public class EducationModificationRepository implements ModificationRepository<E
 
     @Override
     public long add(long userId, Education education) {
-        String sql = "INSERT INTO education (user_id, specialization, degree, name_institute, start_education,  finish_education, type) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+        String sql = "INSERT INTO education (user_id, specialization, degree, name_institute, start_education,  finish_education, type, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterJdbcTemplate.getJdbcTemplate().update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -34,6 +34,7 @@ public class EducationModificationRepository implements ModificationRepository<E
             ps.setDate(5, education.getStartEducation() == null ? null : Date.valueOf(education.getStartEducation()));
             ps.setDate(6, education.getFinishEducation() == null ? null : Date.valueOf(education.getFinishEducation()));
             ps.setString(7, education.getType().name());
+            ps.setString(8, education.getDescription());
             return ps;
         }, keyHolder);
         return (Integer) keyHolder.getKey();
