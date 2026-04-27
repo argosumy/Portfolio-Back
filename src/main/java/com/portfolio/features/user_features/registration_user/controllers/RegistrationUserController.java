@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 

@@ -1,6 +1,7 @@
 package com.portfolio.security.configuration;
 
 import com.portfolio.security.services.CaptchaService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -25,13 +26,19 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@EnableConfigurationProperties({CorsProperties.class, SecurityProperties.class})
 public class WebSecurityConfig {
     private final SecurityFilter securityFilter;
     private final CaptchaService captchaService;
+    private final CorsProperties corsProperties;
+    private final SecurityProperties securityProperties;
 
-    public WebSecurityConfig(SecurityFilter securityFilter, CaptchaService captchaService) {
+    public WebSecurityConfig(SecurityFilter securityFilter, CaptchaService captchaService,
+                             CorsProperties corsProperties, SecurityProperties securityProperties) {
         this.securityFilter = securityFilter;
         this.captchaService = captchaService;
+        this.corsProperties = corsProperties;
+        this.securityProperties = securityProperties;
     }
 
     @Bean
@@ -39,8 +46,9 @@ public class WebSecurityConfig {
         http
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> req
-                                .requestMatchers("/auth/signin", "/users/cards", "/users/captcha","/users/*/cv").permitAll()
+                                .requestMatchers("/auth/signin", "/users/captcha", "/users/*/cv").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/users").permitAll()
+                                .requestMatchers(securityProperties.getPermitAll()).permitAll()
                                 .anyRequest().authenticated())
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .csrf(CsrfConfigurer::disable)
@@ -52,14 +60,7 @@ public class WebSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:8080",
-                "http://172.30.128.1:8080",
-                "http://192.168.0.104:8080",
-                "http://127.0.0.1:8080",
-                "http://127.0.0.1:5500",
-                "http://162.19.229.244:8080"
-                ));
+        corsConfiguration.setAllowedOrigins(corsProperties.getAllowedOrigins());
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.addAllowedHeader(HttpHeaders.CONTENT_TYPE);
         corsConfiguration.addAllowedHeader(HttpHeaders.AUTHORIZATION);
